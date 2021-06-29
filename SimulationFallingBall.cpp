@@ -1,46 +1,38 @@
-﻿#include <iostream>
+#include <iostream>
 #include <cstdlib>
 #include <cmath>
 using namespace std;
 
-int timeFallingBall() {
-	static int time(0);
-	return ++time;
-}
 void fallingBall() {
-	cout << "From what height do we drop the ball? (In meters): ";
-	double h;
-	cin >> h;
-	double v = 0, high = 0, s = 0, maxv = 0, g = 9.8;
-	int t = 0;
-	double hi = h;
-	while (h) {
-		t = timeFallingBall();
-		v = static_cast<double>(t) * g;
-		high = (v * static_cast<double>(t)) / 2;
-		h = hi - high;
-		if (h <= 0) {
-			switch (t) {
-			case 1:
-				cout << "After " << t << " second the ball has reached the ground! Maximum speed: " << maxv << " m/s";
-				break;
-			default:
-				cout << "After " << t << " seconds the ball has reached the ground! Maximum speed: " << maxv << " m/s";
-			}
-			break;
-		}
-		switch (t) {
-		case 1:
-			cout << "After " << t << " second, the ball is at a distance of " << h << " m from the ground at a speed: " << v << " m/s" << endl;
-			break;
-		default:
-			cout << "After " << t << " seconds, the ball is at a distance of " << h << " m from the ground at a speed: " << v << " m/s" << endl;
-			break;
-		}
-		if (v > maxv) {
-			maxv = v;
-		}
-	}
+    std::cout << "From what height do we drop the ball? (In meters): ";
+    double h_start;
+    std::cin >> h_start;
+
+    if (h_start <= 0.0)
+    {
+        std::cout << "The ball is already on the ground!\n";
+        return;
+    }
+
+    const double g = 9.81;
+
+    double t = 0.0;
+
+    while (true)
+    {
+        t += 1.0;
+
+        const double h_current = h_start - 0.5 * g * t * t;
+        const double v_current = g * t;
+
+        if (h_current <= 0.0)
+        {
+            std::cout << "After second " << t << ", the ball has reached the ground! Maximum speed: " << v_current << " m/s\n";
+            break;
+        }
+
+        std::cout << "After second " << t << ", the ball is at a distance of " << h_current << " m from the ground at a speed: " << v_current << " m/s\n";
+    }
 }
 int main() {
 	system("chcp 1251>nul");
