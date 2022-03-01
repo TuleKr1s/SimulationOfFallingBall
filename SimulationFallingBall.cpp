@@ -37,5 +37,6 @@ void fallingBall() {
 int main() {
 	system("chcp 1251>nul");
 	fallingBall();
+    // Testing git.
 	return 0;
 }
